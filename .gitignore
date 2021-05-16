@@ -1,2 +1,4 @@
 /TodoApp/node_modules
-/guess-the-number/node_modules
+/guess-the-number/.expo
+/guess-the-number/.expo-shared
+guess-the-number/node_modules
