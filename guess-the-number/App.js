@@ -8,7 +8,7 @@ import StartGameScreen from "./screens/StartGameScreen";
 import * as Font from "expo-font";
 
 // import {AppLoading} from "expo";
-import AppLoading from 'expo-app-loading';
+import AppLoading from "expo-app-loading";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -45,6 +45,7 @@ export default function App() {
   };
 
   let content = <StartGameScreen onStartGame={startGameHandler} />;
+
   if (userNumber && guessRounds <= 0) {
     content = (
       <GameScreen userChoice={userNumber} onGameOver={gameOverHandler} />
