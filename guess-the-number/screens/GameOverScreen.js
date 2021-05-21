@@ -14,7 +14,6 @@ import Colors from "../constants/colors";
 
 const GameOverScreen = (props) => {
   return (
-    <SafeAreaView>
       <ScrollView>
         <View style={styles.screen}>
           <Text> The Game is Over</Text>
@@ -35,7 +34,6 @@ const GameOverScreen = (props) => {
           <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
         </View>
       </ScrollView>
-    </SafeAreaView>
   );
 };
 
