@@ -6,6 +6,7 @@ import {
   View,
   Image,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import BodyText from "../components/BodyText";
 import MainButton from "../components/MainButton";
@@ -13,25 +14,28 @@ import Colors from "../constants/colors";
 
 const GameOverScreen = (props) => {
   return (
-    <ScrollView>
-      <View style={styles.screen}>
-        <Text> The Game is Over</Text>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require("../assets/success.png")}
-            style={styles.image}
-          />
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.screen}>
+          <Text> The Game is Over</Text>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require("../assets/success.png")}
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.resultContainer}>
+            <BodyText style={styles.resultText}>
+              Your phone needed{" "}
+              <Text style={styles.highlight}>{props.roundsNumber}</Text> to
+              guess the number{" "}
+              <Text style={styles.highlight}>{props.userNumber} </Text>{" "}
+            </BodyText>
+          </View>
+          <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
         </View>
-        <View style={styles.resultContainer}>
-          <BodyText style={styles.resultText}>
-            Your phone needed{" "}
-            <Text style={styles.highlight}>{props.roundsNumber}</Text> to guess
-            the number <Text style={styles.highlight}>{props.userNumber} </Text>{" "}
-          </BodyText>
-        </View>
-        <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -40,6 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
   },
   image: {
     width: "100%",
