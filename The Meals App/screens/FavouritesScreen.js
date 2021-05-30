@@ -1,11 +1,13 @@
 import React from "react";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
 import CustomHeaderButton from "../components/HeaderButton";
 import MealList from "../components/MealList";
 import { MEALS } from "../data/dummy-data";
 
-const FavouritesScreen = () => {
-  return <MealList />;
+const FavouritesScreen = (props) => {
+  const favMeals = useSelector((state) => state.meals.favouriteMeals);
+  return <MealList listData={favMeals} navigation={props.navigation} />;
 };
 
 FavouritesScreen.navigationOptions = (navData) => {
