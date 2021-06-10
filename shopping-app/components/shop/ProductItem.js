@@ -29,7 +29,6 @@ const ProductItem = (props) => {
               <Text style={styles.price}>${props.price.toFixed(2)}</Text>
             </View>
             <View style={styles.actions}>
-              {/* <Text>Hii There</Text> */}
               <Button
                 color={Colors.primary}
                 title="View Details"
@@ -83,10 +82,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
+    fontFamily: "open-sans-bold",
     fontSize: 18,
     marginVertical: 4,
   },
   price: {
+    fontSize: "open-sans",
     fontSize: 14,
     color: "#888",
   },
