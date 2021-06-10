@@ -1,5 +1,5 @@
 import CartItem from "../../models/cart-item";
-import { ADD_TO_CART } from "../actions/cart";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
 
 const initialState = {
   items: {},
@@ -16,10 +16,10 @@ export default (state = initialState, action) => {
       if (state.items[addedProduct.id]) {
         // already in the list ...
         updatedOrNewCartItem = new CartItem(
-          state.items[addedProduct.id] + 1,
+          state.items[addedProduct.id].quantity + 1,
           prodPrice,
           prodTitle,
-          state.items[addedProduct].sum + prodPrice
+          state.items[addedProduct.id].sum + prodPrice
         );
       } else {
         updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
@@ -28,6 +28,26 @@ export default (state = initialState, action) => {
         ...state,
         items: { ...state.items, [addedProduct.id]: updatedOrNewCartItem },
         totalAmount: state.totalAmount + prodPrice,
+      };
+    case REMOVE_FROM_CART:
+      const cartItem = state.items[action.pid];
+      const currentQuantity = cartItem.quantity;
+      let updatedCartItem;
+      if (currentQuantity > 1) {
+        updatedCartItem = new CartItem(
+          cartItem.quantity - 1,
+          cartItem.productPrice,
+          cartItem.productTitle,
+          cartItem.sum - cartItem.productPrice
+        );
+      } else {
+        const updatedCartItem = { ...state.items };
+        delete updatedCartItem[action.pid];
+      }
+      return {
+        ...state,
+        items: updatedCartItem,
+        totalAmount: state.totalAmount - cartItem.productPrice,
       };
 
     default:
