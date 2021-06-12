@@ -30,25 +30,46 @@ export default (state = initialState, action) => {
         totalAmount: state.totalAmount + prodPrice,
       };
     case REMOVE_FROM_CART:
-      const cartItem = state.items[action.pid];
-      const currentQuantity = cartItem.quantity;
-      let updatedCartItem;
-      if (currentQuantity > 1) {
-        updatedCartItem = new CartItem(
-          cartItem.quantity - 1,
-          cartItem.productPrice,
-          cartItem.productTitle,
-          cartItem.sum - cartItem.productPrice
+      const selectedCartItem = state.items[action.pid];
+      const currentQty = selectedCartItem.quantity;
+      let updatedCartItems;
+      if (currentQty > 1) {
+        // need to reduce it, not erase it
+        const updatedCartItem = new CartItem(
+          selectedCartItem.quantity - 1,
+          selectedCartItem.productPrice,
+          selectedCartItem.productTitle,
+          selectedCartItem.sum - selectedCartItem.productPrice
         );
+        updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
       } else {
-        const updatedCartItem = { ...state.items };
-        delete updatedCartItem[action.pid];
+        updatedCartItems = { ...state.items };
+        delete updatedCartItems[action.pid];
       }
       return {
         ...state,
-        items: updatedCartItem,
-        totalAmount: state.totalAmount - cartItem.productPrice,
+        items: updatedCartItems,
+        totalAmount: state.totalAmount - selectedCartItem.productPrice,
       };
+    // const cartItem = state.items[action.pid];
+    // const currentQuantity = cartItem.quantity;
+    // let updatedCartItem = {};
+    // if (currentQuantity > 1) {
+    //   updatedCartItem = new CartItem(
+    //     cartItem.quantity - 1,
+    //     cartItem.productPrice,
+    //     cartItem.productTitle,
+    //     cartItem.sum - cartItem.productPrice
+    //   );
+    // } else {
+    //   const updatedCartItem = { ...state.items };
+    //   delete updatedCartItem[action.pid];
+    // }
+    // return {
+    //   ...state,
+    //   items: updatedCartItem,
+    //   totalAmount: state.totalAmount - cartItem.productPrice,
+    // };
 
     default:
       break;
