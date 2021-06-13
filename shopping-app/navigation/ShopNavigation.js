@@ -10,6 +10,7 @@ import CartScreen from "../screens/shop/CartScreen";
 import OrderScreen from "../screens/shop/OrderScreen";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { Ionicons } from "@expo/vector-icons";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
 
 const defaultNavOptions = {
   headerStyle: {
@@ -62,10 +63,29 @@ const ordersNavigator = createStackNavigator(
   }
 );
 
+const AdminNavigator = createStackNavigator(
+  {
+    userProducts: UserProductsScreen,
+  },
+  {
+    navigationOptions: {
+      drawerIcon: (drawerConfig) => (
+        <Ionicons
+          name={Platform.OS === "android" ? "md-create" : "ios-create"}
+          size={23}
+          color={drawerConfig.tintColor}
+        />
+      ),
+    },
+    defaultNavigationOptions: defaultNavOptions,
+  }
+);
+
 const shopNavigator = createDrawerNavigator(
   {
     Products: ProductsNavigator,
     Orders: ordersNavigator,
+    Admin: AdminNavigator,
   },
   {
     contentOptions: {
